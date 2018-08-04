@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { enter, moveRightAndRotate, wagTail, breathing, blinking, treatTime, bark } from './animations'
-import Reminder from './Reminder'
+const { remote, BrowserWindow } = window.require('electron')
+const currentWindow = remote.getCurrentWindow()
 
 
 
@@ -67,7 +68,7 @@ export default class App extends Component {
       const minute = alarmElement.querySelector('.minute').value; 
       const now = new Date();
       const due = new Date(now.getYear()+1900,now.getMonth(),now.getDate(),Number(hour),Number(minute));
-      setTimeout(function() {bark(); alarmElement.style.display = 'none';}, due.getTime() - now.getTime());
+      setTimeout(function() {currentWindow.focus(); bark(); alarmElement.style.display = 'none';}, due.getTime() - now.getTime());
       const content = alarmElement.querySelector('.content').value;
       if (even) {
         alarmElement.innerHTML = '<div class="todo even">' + content + '</div>';

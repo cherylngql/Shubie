@@ -86,43 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./client/Reminder.js":
-/*!****************************!*\
-  !*** ./client/Reminder.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var Reminder = function Reminder(props) {
-  return React.createElement(
-    "div",
-    null,
-    React.createElement("input", { type: "text" }),
-    React.createElement(
-      "div",
-      { className: "setAlarm" },
-      React.createElement("input", { type: "text", className: "time hour" }),
-      ":",
-      React.createElement("input", { type: "text", className: "time minute" }),
-      React.createElement(
-        "button",
-        { className: "add", onClick: props.setAlarm },
-        "Set"
-      )
-    )
-  );
-};
-
-exports.default = Reminder;
-
-/***/ }),
-
 /***/ "./client/animations.js":
 /*!******************************!*\
   !*** ./client/animations.js ***!
@@ -269,10 +232,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _animations = __webpack_require__(/*! ./animations */ "./client/animations.js");
 
-var _Reminder = __webpack_require__(/*! ./Reminder */ "./client/Reminder.js");
-
-var _Reminder2 = _interopRequireDefault(_Reminder);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -280,6 +239,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _window$require = window.require('electron'),
+    remote = _window$require.remote,
+    BrowserWindow = _window$require.BrowserWindow;
+
+var currentWindow = remote.getCurrentWindow();
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -359,7 +324,7 @@ var App = function (_Component) {
         var now = new Date();
         var due = new Date(now.getYear() + 1900, now.getMonth(), now.getDate(), Number(hour), Number(minute));
         setTimeout(function () {
-          (0, _animations.bark)();alarmElement.style.display = 'none';
+          currentWindow.focus();(0, _animations.bark)();alarmElement.style.display = 'none';
         }, due.getTime() - now.getTime());
         var content = alarmElement.querySelector('.content').value;
         if (even) {
