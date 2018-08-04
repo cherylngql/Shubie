@@ -296,6 +296,17 @@ var _window$require = window.require('electron'),
 
 var currentWindow = remote.getCurrentWindow();
 
+var childWindow = void 0;
+
+function createChild() {
+  // Create the browser window.
+  var currentPosition = currentWindow.getPosition();
+  childWindow = new remote.BrowserWindow({ width: 400, height: 600, frame: false, titleBarStyle: 'customButtonsOnHover', resizable: false, opacity: 0.7, parent: remote.getCurrentWindow(), x: currentPosition[0], y: currentPosition[1] });
+  // and load the index.html of the app.
+  console.log(currentWindow.getPosition());
+  childWindow.loadFile('./public/index-child.html');
+}
+
 var App = function (_Component) {
   _inherits(App, _Component);
 
@@ -309,6 +320,7 @@ var App = function (_Component) {
     _this.clickRemind = _this.clickRemind.bind(_this);
     _this.addMore = _this.addMore.bind(_this);
     _this.clickTreat = _this.clickTreat.bind(_this);
+    _this.clickPlay = _this.clickPlay.bind(_this);
     return _this;
   }
 
@@ -342,11 +354,11 @@ var App = function (_Component) {
       }
       // childWindow.show();
     }
-
-    // clickPlay(evt) {
-    //   childWindow.show();
-    // }
-
+  }, {
+    key: 'clickPlay',
+    value: function clickPlay(evt) {
+      createChild();
+    }
   }, {
     key: 'clickRemind',
     value: function clickRemind(evt) {
@@ -422,7 +434,7 @@ var App = function (_Component) {
           { id: 'menu-select' },
           _react2.default.createElement(
             'button',
-            { id: 'play' },
+            { id: 'play', onClick: this.clickPlay },
             'Play'
           ),
           _react2.default.createElement(

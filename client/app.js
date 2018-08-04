@@ -3,7 +3,16 @@ import { enter, moveRightAndRotate, wagTail, breathing, blinking, treatTime, bar
 const { remote, BrowserWindow } = window.require('electron')
 const currentWindow = remote.getCurrentWindow()
 
+let childWindow;
 
+function createChild () {
+  // Create the browser window.
+  let currentPosition = currentWindow.getPosition();
+  childWindow = new remote.BrowserWindow({width: 400, height: 600, frame: false, titleBarStyle: 'customButtonsOnHover', resizable: false, opacity: 0.7, parent: remote.getCurrentWindow(), x: currentPosition[0], y: currentPosition[1]})
+  // and load the index.html of the app.
+  console.log(currentWindow.getPosition());
+  childWindow.loadFile('./public/index-child.html')
+}
 
 export default class App extends Component {
   constructor() {
@@ -13,6 +22,7 @@ export default class App extends Component {
     this.clickRemind = this.clickRemind.bind(this);
     this.addMore = this.addMore.bind(this);
     this.clickTreat = this.clickTreat.bind(this);
+    this.clickPlay = this.clickPlay.bind(this);
   }
 
   componentDidMount() {
@@ -41,10 +51,9 @@ export default class App extends Component {
     }
     // childWindow.show();
   }
-
-  // clickPlay(evt) {
-  //   childWindow.show();
-  // }
+  clickPlay(evt) {
+    createChild();
+  }
 
   clickRemind(evt) {
     const reminders = document.getElementById('remind');
@@ -102,7 +111,7 @@ export default class App extends Component {
         </div>
         <button id="menu" onClick={this.showMenu}>Menu</button>
         <div id="menu-select">
-          <button id="play" >Play</button>
+          <button id="play" onClick={this.clickPlay}>Play</button>
           <button id="treat" onClick={this.clickTreat}>Treat</button>
           <button id="set" onClick={this.clickRemind}>Remind</button>
           <img id="treat-image" src="../public/treat.png"/>

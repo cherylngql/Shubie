@@ -5,17 +5,13 @@ console.log(app);
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-let childWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 400, height: 800, titleBarStyle: 'customButtonsOnHover', frame: false, transparent: true, resizable: false})
+  mainWindow = new BrowserWindow({width: 400, height: 800, titleBarStyle: 'customButtonsOnHover', frame: false, transparent: true, resizable: false, x: 100, y: 400, offscreen: true})
   // and load the index.html of the app.
   mainWindow.loadFile('./public/index.html')
 
-  childWindow = new BrowserWindow({width: 140, height: 140, frame: false, parent: mainWindow, show: false})
-  
-  childWindow.loadFile('./public/index-child.html')
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
@@ -52,4 +48,3 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-module.exports = {childWindow, app, mainWindow}

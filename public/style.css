@@ -145,3 +145,7 @@ input {
   margin-top: 10px;
   margin-left: 25px;
 }
+
+#close-child {
+  -webkit-app-region: no-drag;
+}
