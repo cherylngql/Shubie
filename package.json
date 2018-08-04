@@ -1,0 +1,25 @@
+{
+  "name": "shubie",
+  "version": "1.0.0",
+  "description": "An interactive dog living on your desktop!",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "start-dev": "webpack && electron ."
+  },
+  "author": "Cheryl",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electromon": "^1.0.10",
+    "electron": "^2.0.6",
+    "gsap": "^2.0.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "webpack": "^4.16.4",
+    "webpack-cli": "^3.1.0"
+  }
+}
