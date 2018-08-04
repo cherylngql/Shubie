@@ -1,4 +1,4 @@
-import { TimelineMax } from 'gsap';
+import { TimelineMax, TweenLite } from 'gsap';
 import Draggable from 'gsap/Draggable'
 
 export const enter = () => {
@@ -40,24 +40,75 @@ export const blinking = () => {
 }
 
 export const treatTime = () => {
-  Draggable.create("#treat-image");
-  const mouth =document.getElementById('mouth');
-  mouth.style.display = 'block';
+  // const treat = new Draggable("#treat-image");
+  var lastPos = {x:0,y:0};
+  Draggable.create( "#treat-image" , {
+    type: "x,y",
+    onPress:function(){
+      lastPos.x = this.x;
+      lastPos.y = this.y; 
+      console.log(" last position : "+ lastPos.x , lastPos.y); // get Draggable current position
+    },
+    onDragEnd:function(){
+      this.target.style.display = 'none';
+      const chewSound = document.getElementById('chew-sound');
+      chewSound.play();
+      TweenLite.to(this.target,1,{ x:lastPos.x , y:lastPos.y });
+      mouth.style.display = 'block';
+      setTimeout(function() {
+        mouth.style.display = 'none';
+        setTimeout(function() {
+          mouth.style.display = 'block';
+          setTimeout(function() {
+            mouth.style.display = 'none';
+            setTimeout(function() {
+              mouth.style.display = 'block';
+              setTimeout(function() {
+                mouth.style.display = 'none';
+                setTimeout(function() {
+                  mouth.style.display = 'block';
+                  setTimeout(function() {
+                    mouth.style.display = 'none';
+                    setTimeout(function() {
+                      mouth.style.display = 'block';
+                      setTimeout(function() {
+                        mouth.style.display = 'none';
+                        setTimeout(function() {
+                          mouth.style.display = 'block';
+                          setTimeout(function() {
+                            mouth.style.display = 'none';
+                            setTimeout(function() {
+                              mouth.style.display = 'block';
+                              
+                            }, 300);
+                          }, 100);
+                        }, 300);
+                      }, 100);
+                    }, 300);
+                  }, 100);
+                }, 300);
+              }, 100);
+            }, 300);
+          }, 100);
+        }, 300);
+      }, 100);
+    }
+  });   
   let timer;
   if (!timer) {
     timer = setInterval(function() {
       setTimeout(function() {
         mouth.style.display = 'none';
-      }, 2000 + 1000*Math.random());
+      }, 5000 + 1000*Math.random());
       mouth.style.display = 'block';
-    }, 4000 + 2000*Math.random());
+    }, 6000 + 2000*Math.random());
   } else {
     clearInterval(timer);
   }
 }
 
 export const bark = () => {
-  const audio = document.getElementsByTagName('AUDIO')[0];
+  const audio = document.getElementById("bark-sound");
   audio.play();
   const barking = document.getElementById('barking');
   const notBarking = document.getElementById('not-barking');

@@ -56,7 +56,10 @@ export default class App extends Component {
   }
 
   clickTreat(evt) {
-    document.getElementById('treat-image').style.display = 'block';
+    const treat = document.getElementById('treat-image');
+    treat.style.left = '0px';
+    treat.style.top = '0px';
+    treat.style.display = 'block';
     treatTime();
   }
 

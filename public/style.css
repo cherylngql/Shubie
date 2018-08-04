@@ -140,3 +140,8 @@ input {
 #barking {
   display: none;
 }
+
+#treat-image {
+  margin-top: 10px;
+  margin-left: 25px;
+}

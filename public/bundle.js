@@ -145,24 +145,74 @@ var blinking = exports.blinking = function blinking() {
 };
 
 var treatTime = exports.treatTime = function treatTime() {
-  _Draggable2.default.create("#treat-image");
-  var mouth = document.getElementById('mouth');
-  mouth.style.display = 'block';
+  // const treat = new Draggable("#treat-image");
+  var lastPos = { x: 0, y: 0 };
+  _Draggable2.default.create("#treat-image", {
+    type: "x,y",
+    onPress: function onPress() {
+      lastPos.x = this.x;
+      lastPos.y = this.y;
+      console.log(" last position : " + lastPos.x, lastPos.y); // get Draggable current position
+    },
+    onDragEnd: function onDragEnd() {
+      this.target.style.display = 'none';
+      var chewSound = document.getElementById('chew-sound');
+      chewSound.play();
+      _gsap.TweenLite.to(this.target, 1, { x: lastPos.x, y: lastPos.y });
+      mouth.style.display = 'block';
+      setTimeout(function () {
+        mouth.style.display = 'none';
+        setTimeout(function () {
+          mouth.style.display = 'block';
+          setTimeout(function () {
+            mouth.style.display = 'none';
+            setTimeout(function () {
+              mouth.style.display = 'block';
+              setTimeout(function () {
+                mouth.style.display = 'none';
+                setTimeout(function () {
+                  mouth.style.display = 'block';
+                  setTimeout(function () {
+                    mouth.style.display = 'none';
+                    setTimeout(function () {
+                      mouth.style.display = 'block';
+                      setTimeout(function () {
+                        mouth.style.display = 'none';
+                        setTimeout(function () {
+                          mouth.style.display = 'block';
+                          setTimeout(function () {
+                            mouth.style.display = 'none';
+                            setTimeout(function () {
+                              mouth.style.display = 'block';
+                            }, 300);
+                          }, 100);
+                        }, 300);
+                      }, 100);
+                    }, 300);
+                  }, 100);
+                }, 300);
+              }, 100);
+            }, 300);
+          }, 100);
+        }, 300);
+      }, 100);
+    }
+  });
   var timer = void 0;
   if (!timer) {
     timer = setInterval(function () {
       setTimeout(function () {
         mouth.style.display = 'none';
-      }, 2000 + 1000 * Math.random());
+      }, 5000 + 1000 * Math.random());
       mouth.style.display = 'block';
-    }, 4000 + 2000 * Math.random());
+    }, 6000 + 2000 * Math.random());
   } else {
     clearInterval(timer);
   }
 };
 
 var bark = exports.bark = function bark() {
-  var audio = document.getElementsByTagName('AUDIO')[0];
+  var audio = document.getElementById("bark-sound");
   audio.play();
   var barking = document.getElementById('barking');
   var notBarking = document.getElementById('not-barking');
@@ -310,7 +360,10 @@ var App = function (_Component) {
   }, {
     key: 'clickTreat',
     value: function clickTreat(evt) {
-      document.getElementById('treat-image').style.display = 'block';
+      var treat = document.getElementById('treat-image');
+      treat.style.left = '0px';
+      treat.style.top = '0px';
+      treat.style.display = 'block';
       (0, _animations.treatTime)();
     }
   }, {
