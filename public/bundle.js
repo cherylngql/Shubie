@@ -301,7 +301,7 @@ var childWindow = void 0;
 function createChild() {
   // Create the browser window.
   var currentPosition = currentWindow.getPosition();
-  childWindow = new remote.BrowserWindow({ width: 400, height: 600, frame: false, titleBarStyle: 'customButtonsOnHover', resizable: false, opacity: 0.7, parent: remote.getCurrentWindow(), x: currentPosition[0], y: currentPosition[1] });
+  childWindow = new remote.BrowserWindow({ width: 400, height: 600, frame: false, resizable: false, opacity: 0.7, x: currentPosition[0], y: currentPosition[1] });
   // and load the index.html of the app.
   console.log(currentWindow.getPosition());
   childWindow.loadFile('./public/index-child.html');
