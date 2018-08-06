@@ -299,12 +299,19 @@ var currentWindow = remote.getCurrentWindow();
 var childWindow = void 0;
 
 function createChild() {
-  // Create the browser window.
   var currentPosition = currentWindow.getPosition();
-  childWindow = new remote.BrowserWindow({ width: 400, height: 600, frame: false, resizable: false, opacity: 0.7, x: currentPosition[0], y: currentPosition[1] });
-  // and load the index.html of the app.
-  console.log(currentWindow.getPosition());
+  childWindow = new remote.BrowserWindow({ width: 400, height: 600, resizable: false, x: currentPosition[0], y: currentPosition[1] });
   childWindow.loadFile('./public/index-child.html');
+}
+
+function createNotification(message) {
+  var notification = document.createElement('div');
+  notification.classList.add('notification');
+  notification.innerHTML = message + '<button type="button">Got it</button>';
+  document.getElementById('menu-select').appendChild(notification);
+  notification.querySelector('button').addEventListener('click', function () {
+    document.getElementById('menu-select').removeChild(notification);
+  });
 }
 
 var App = function (_Component) {
@@ -388,17 +395,11 @@ var App = function (_Component) {
         var minute = alarmElement.querySelector('.minute').value;
         var now = new Date();
         var due = new Date(now.getYear() + 1900, now.getMonth(), now.getDate(), Number(hour), Number(minute));
-        setTimeout(function () {
-          currentWindow.focus();(0, _animations.bark)();alarmElement.style.display = 'none';
-        }, due.getTime() - now.getTime());
         var content = alarmElement.querySelector('.content').value;
-        if (even) {
-          alarmElement.innerHTML = '<div class="todo even">' + content + '</div>';
-          even = false;
-        } else {
-          alarmElement.innerHTML = '<div class="todo odd">' + content + '</div>';
-          even = true;
-        }
+        setTimeout(function () {
+          currentWindow.focus();(0, _animations.bark)();createNotification(content);alarmElement.style.display = 'none';
+        }, due.getTime() - now.getTime());
+        alarmElement.innerHTML = '<div class="todo">' + content + '</div>';
       }
       var item = document.createElement('div');
       item.innerHTML = '<input type="text" class="content"></input><input type="text" name="hour" class="hour time"/>:<input type="text" name="minute" class="minute time"/><button class="add">Set</button>';

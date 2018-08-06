@@ -114,18 +114,10 @@ input {
   -webkit-app-region: no-drag;
 }
 
-.todo.even {
+.todo {
   background-color: rgb(23, 45, 65);
   border-radius: 5px;
   color: rgb(255, 255, 255);
-  text-align: center;
-  margin: 2px;
-}
-
-.todo.odd {
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  color: rgb(23, 45, 65);
   text-align: center;
   margin: 2px;
 }
@@ -148,4 +140,15 @@ input {
 
 #close-child {
   -webkit-app-region: no-drag;
+}
+
+.notification {
+  position: absolute;
+  background-color: rgba(240, 248, 255, 0.849);
+  border-radius: 30%;
+  text-align: center;
+  height: auto;
+  padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
