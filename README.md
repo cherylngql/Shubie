@@ -14,6 +14,9 @@ An interactive dog living on your desktop.
   - React
   - Phaser
   - GSAP (GreenSock)
+  
+## Download
+  _ https://drive.google.com/uc?export=download&id=1K5N56rE2zSVh0erbIktVsgDX_QGivvp2
 
 ## Installation
 
